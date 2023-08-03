@@ -1,0 +1,24 @@
+name: Update flake.lock
+
+on:
+  schedule:
+    - cron: "0 12 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update-flake:
+    if: github.repository == 'Scrumplex/pkgs'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: cachix/install-nix-action@v22
+
+      - uses: DeterminateSystems/update-flake-lock@v19
+        with:
+          commit-msg: "chore(nix): update lockfile"
+          pr-title: "chore(nix): update lockfile"
