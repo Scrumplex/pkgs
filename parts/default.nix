@@ -20,7 +20,8 @@
   systems = [
     "x86_64-linux"
     "aarch64-linux"
-    "x86_64-darwin"
-    "aarch64-darwin"
+    # TODO: figure out how to inherit packages while checking their platforms
+    #"x86_64-darwin"
+    #"aarch64-darwin"
   ];
 }
