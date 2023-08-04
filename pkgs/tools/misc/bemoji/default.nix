@@ -53,5 +53,6 @@ stdenvNoCC.mkDerivation rec {
     changelog = "https://github.com/marty-oehme/bemoji/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = [maintainers.Scrumplex];
+    mainProgram = "bemoji";
   };
 }
