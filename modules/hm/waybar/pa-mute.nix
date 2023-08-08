@@ -19,6 +19,7 @@
   pkgs,
   ...
 }: let
+  inherit (builtins) hasContext toString;
   inherit (lib.attrsets) getBin;
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
@@ -44,6 +45,14 @@ in {
         default = null;
         description = "Path to ALSA state file to restore when toggling. Disabled if null";
         type = lib.types.nullOr lib.types.path;
+        apply = v:
+          if hasContext (toString v)
+          then v
+          else
+            builtins.path {
+              path = v;
+              name = "asound.state";
+            };
       };
     };
 
