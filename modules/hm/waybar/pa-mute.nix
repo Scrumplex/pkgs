@@ -46,7 +46,7 @@ in {
         description = "Path to ALSA state file to restore when toggling. Disabled if null";
         type = lib.types.nullOr lib.types.path;
         apply = v:
-          if hasContext (toString v)
+          if (v == null || hasContext (toString v))
           then v
           else
             builtins.path {
