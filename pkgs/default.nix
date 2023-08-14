@@ -16,6 +16,8 @@ in {
     };
   });
 
+  pipewire-module-kinect = callPackage ./development/libraries/pipewire-module-kinect {};
+
   run-or-raise = callPackage ./tools/wayland/run-or-raise {};
 
   termapp = callPackage ./tools/wayland/termapp {};
