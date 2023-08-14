@@ -11,13 +11,14 @@
 in {
   options.hardware.opengl.vdpau = {
     driverName = mkOption {
+      default = null;
       description = mdDoc ''
         Name of the VDPAU driver.
         You can list all installed drivers by checking for library files in `/run/opengl-driver/lib/vdpau`.
         These vdpau drivers follow the naming scheme `libvdpau_<driver name>.so`
       '';
       example = "radeonsi";
-      type = types.str;
+      type = types.nullOr types.str;
     };
   };
 
