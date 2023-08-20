@@ -20,13 +20,10 @@
   ...
 }: let
   inherit (builtins) hasContext toString;
-  inherit (lib.attrsets) getBin;
-  inherit (lib.meta) getExe;
+  inherit (lib.meta) getExe getExe';
   inherit (lib.modules) mkIf;
   inherit (lib.options) mkEnableOption mkOption;
   inherit (lib.strings) escapeShellArg optionalString;
-
-  getExe' = x: y: "${getBin x}/bin/${y}";
 
   cfg = config.programs.waybar.extraModules.paMute;
   restoreAlsaState = cfg.alsaState.card != null && cfg.alsaState.file != null;
