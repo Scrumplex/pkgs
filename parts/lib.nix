@@ -2,12 +2,13 @@
   ourLib = lib: {
     scrumplex = import ../lib lib;
   };
+  extendLib = lib: lib.extend (final: _: ourLib final);
 in {
   flake = {
-    lib = ourLib inputs.nixpkgs.lib;
+    lib = extendLib inputs.nixpkgs.lib;
 
     overlays.lib = _: prev: {
-      lib = prev.lib.extend (final: _: ourLib final);
+      lib = extendLib prev.lib;
     };
   };
 }
