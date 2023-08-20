@@ -5,6 +5,7 @@
 }: {
   imports = [
     ./dev.nix
+    ./lib.nix
     ./modules.nix
     ./pkgs.nix
   ];
