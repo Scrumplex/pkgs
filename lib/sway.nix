@@ -6,7 +6,7 @@
     mkExec "Mod4+Enter" (getExe pkgs.foot)
     => { "Mod4+Enter" = "exec /nix/store/aas7inivadn62v7abxqlfahah8cz9nbd-foot-1.15.3/bin/foot"; }
   Type:
-    mkExec :: String -> String -> String
+    mkExec :: String -> String -> AttrSet
   */
   mkExec = keyCombo: exec: {${keyCombo} = "exec ${exec}";};
 
