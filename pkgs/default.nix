@@ -22,5 +22,11 @@ in {
 
   termapp = callPackage ./tools/wayland/termapp {};
 
+  libwlxpw = callPackage ./applications/misc/wlxoverlay/libwlxpw.nix {};
+
+  libwlxshm = callPackage ./applications/misc/wlxoverlay/libwlxpw.nix {};
+
+  wlxoverlay = callPackage ./applications/misc/wlxoverlay {};
+
   zoom65-udev-rules = callPackage ./os-specific/linux/zoom65-udev-rules {};
 }

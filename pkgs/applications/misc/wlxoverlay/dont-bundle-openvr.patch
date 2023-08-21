@@ -1,0 +1,15 @@
+diff --git a/WlxOverlay.csproj b/WlxOverlay.csproj
+index 94d5ae5..fb1e28f 100644
+--- a/WlxOverlay.csproj
++++ b/WlxOverlay.csproj
+@@ -47,10 +47,6 @@
+       </Content>
+       <None Remove="Screen\Interop\libxshm_cap.so" />
+       <None Remove="Resources\FreeSans.otf" />
+-      <None Remove="libopenvr_api.so" />
+-      <Content Include="libopenvr_api.so">
+-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+-      </Content>
+       <None Remove="Shaders\blend.frag" />
+       <None Remove="Shaders\blend.vert" />
+       <None Remove="Resources\FreeSansBold.otf" />
