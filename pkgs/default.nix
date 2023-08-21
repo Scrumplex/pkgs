@@ -18,6 +18,8 @@ in {
 
   run-or-raise = callPackage ./tools/wayland/run-or-raise {};
 
+  screenshot-bash = callPackage ./tools/graphics/screenshot-bash {};
+
   termapp = callPackage ./tools/wayland/termapp {};
 
   zoom65-udev-rules = callPackage ./os-specific/linux/zoom65-udev-rules {};
