@@ -20,6 +20,10 @@ in {
 
   libwlxshm = callPackage ./applications/misc/wlxoverlay/libwlxpw.nix {};
 
+  opencomposite = callPackage ./applications/graphics/opencomposite {};
+
+  opencomposite-helper = callPackage ./applications/graphics/opencomposite/helper.nix {};
+
   run-or-raise = callPackage ./tools/wayland/run-or-raise {};
 
   screenshot-bash = callPackage ./tools/graphics/screenshot-bash {};
