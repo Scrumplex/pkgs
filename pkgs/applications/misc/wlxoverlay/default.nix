@@ -2,10 +2,12 @@
   lib,
   buildDotnetModule,
   fetchFromGitHub,
-  libwlxpw,
-  libwlxshm,
   openvr,
   glfw,
+  libwlxpw,
+  libwlxshm,
+  withWayland ? true,
+  withX11 ? true,
 }: let
   common = import ./common.nix {inherit lib fetchFromGitHub;};
 in
@@ -21,5 +23,8 @@ in
     ];
 
     executables = ["WlxOverlay"];
-    runtimeDeps = [libwlxpw libwlxshm openvr glfw];
+    runtimeDeps =
+      [openvr glfw]
+      ++ lib.optional withWayland libwlxpw
+      ++ lib.optional withX11 libwlxshm;
   }
