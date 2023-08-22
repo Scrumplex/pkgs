@@ -16,15 +16,15 @@ in {
     };
   });
 
+  libwlxpw = callPackage ./applications/misc/wlxoverlay/libwlxpw.nix {};
+
+  libwlxshm = callPackage ./applications/misc/wlxoverlay/libwlxpw.nix {};
+
   run-or-raise = callPackage ./tools/wayland/run-or-raise {};
 
   screenshot-bash = callPackage ./tools/graphics/screenshot-bash {};
 
   termapp = callPackage ./tools/wayland/termapp {};
-
-  libwlxpw = callPackage ./applications/misc/wlxoverlay/libwlxpw.nix {};
-
-  libwlxshm = callPackage ./applications/misc/wlxoverlay/libwlxpw.nix {};
 
   wlxoverlay = callPackage ./applications/misc/wlxoverlay {};
 
