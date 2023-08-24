@@ -1,36 +1,28 @@
-pkgs: let
-  inherit (pkgs) callPackage fetchFromGitHub glfw;
-in {
-  bemoji = callPackage ./tools/misc/bemoji {};
-
-  fuzzel-dmenu-shim = callPackage ./tools/wayland/fuzzel-dmenu-shim {};
-
-  glfw-wayland-minecraft = callPackage ./development/libraries/glfw-wayland-minecraft {};
-
-  glfwUnstable = glfw.overrideAttrs (_: {
-    src = fetchFromGitHub {
-      owner = "glfw";
-      repo = "GLFW";
-      rev = "62e175ef9fae75335575964c845a302447c012c7";
-      sha256 = "sha256-GiY4d7xadR0vN5uCQyWaOpoo2o6uMGl1fCcX4uDGnks=";
+{
+  inputs,
+  self,
+  ...
+}: {
+  perSystem = {
+    pkgs,
+    lib,
+    system,
+    ...
+  }: {
+    # Nixpkgs instantiated for supported systems with our overlay.
+    _module.args.pkgs = import inputs.nixpkgs {
+      inherit system;
+      overlays = [self.overlays.default];
     };
-  });
 
-  libwlxpw = callPackage ./applications/misc/wlxoverlay/libwlxpw.nix {};
+    packages = let
+      overlayPkgs = self.overlays.default pkgs null;
+      # use the packages the we overlaid onto pkgs
+      allPackages = builtins.mapAttrs (name: _: pkgs.${name}) overlayPkgs;
+    in
+      lib.filterAttrs (_: v: builtins.elem system (v.meta.platforms or []) && !(v.meta.broken or false))
+      allPackages;
+  };
 
-  libwlxshm = callPackage ./applications/misc/wlxoverlay/libwlxpw.nix {};
-
-  opencomposite = callPackage ./applications/graphics/opencomposite {};
-
-  opencomposite-helper = callPackage ./applications/graphics/opencomposite/helper.nix {};
-
-  run-or-raise = callPackage ./tools/wayland/run-or-raise {};
-
-  screenshot-bash = callPackage ./tools/graphics/screenshot-bash {};
-
-  termapp = callPackage ./tools/wayland/termapp {};
-
-  wlxoverlay = callPackage ./applications/misc/wlxoverlay {};
-
-  zoom65-udev-rules = callPackage ./os-specific/linux/zoom65-udev-rules {};
+  flake.overlays.default = final: _: import ./all-packages.nix final;
 }
