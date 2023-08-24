@@ -16,5 +16,6 @@
     homepage = "https://github.com/galister/WlxOverlay";
     license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [Scrumplex];
+    platforms = lib.platforms.linux;
   };
 }

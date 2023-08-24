@@ -24,11 +24,11 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    homepage = "https://codeberg.org/Scrumplex/dotfiles";
     description = "A run-or-raise application switcher for Sway";
-    platforms = platforms.linux;
+    homepage = "https://codeberg.org/Scrumplex/dotfiles";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [Scrumplex];
     mainProgram = "run-or-raise";
+    maintainers = with maintainers; [Scrumplex];
+    platforms = platforms.linux;
   };
 }

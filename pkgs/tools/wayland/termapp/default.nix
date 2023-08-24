@@ -26,11 +26,11 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    homepage = "https://codeberg.org/Scrumplex/dotfiles";
     description = "A utility to run terminal apps using run-or-raise";
-    platforms = platforms.linux;
+    homepage = "https://codeberg.org/Scrumplex/dotfiles";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [Scrumplex];
     mainProgram = "termapp";
+    maintainers = with maintainers; [Scrumplex];
+    platforms = platforms.linux;
   };
 }

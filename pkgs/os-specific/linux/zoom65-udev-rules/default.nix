@@ -17,8 +17,8 @@ stdenv.mkDerivation {
   meta = with lib; {
     homepage = "https://wooting.helpscoutdocs.com/article/34-linux-udev-rules";
     description = "udev rules that give NixOS permission to communicate with Zoom65";
-    platforms = platforms.linux;
     license = licenses.cc0;
     maintainers = with maintainers; [Scrumplex];
+    platforms = platforms.linux;
   };
 }

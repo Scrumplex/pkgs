@@ -52,5 +52,6 @@ stdenv.mkDerivation {
     homepage = "https://gitlab.com/znixian/OpenOVR";
     license = with licenses; [gpl3Only];
     maintainers = with maintainers; [Scrumplex];
+    platforms = platforms.linux;
   };
 }

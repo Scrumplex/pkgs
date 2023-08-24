@@ -48,11 +48,12 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   meta = with lib; {
+    changelog = "https://github.com/marty-oehme/bemoji/blob/${src.rev}/CHANGELOG.md";
     description = "Emoji picker that remembers your favorites, with support for bemenu/wofi/rofi/dmenu and wayland/X11";
     homepage = "https://github.com/marty-oehme/bemoji";
-    changelog = "https://github.com/marty-oehme/bemoji/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = [maintainers.Scrumplex];
     mainProgram = "bemoji";
+    maintainers = [maintainers.Scrumplex];
+    platforms = platforms.linux;
   };
 }

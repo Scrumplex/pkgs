@@ -52,4 +52,12 @@ stdenv.mkDerivation (_: {
     wrapProgram $out/bin/screenshot-bash --prefix PATH : $out/bin --prefix PATH : '${lib.makeBinPath runtimePrograms}'
     wrapProgram $out/bin/upload-bash --prefix PATH : $out/bin --prefix PATH : '${lib.makeBinPath runtimePrograms}'
   '';
+
+  meta = with lib; {
+    homepage = "https://codeberg.org/Scrumplex/screenshot-bash";
+    description = "screenshot - upload - copy-url pipeline";
+    license = licenses.gpl3Plus;
+    maintainers = with maintainers; [Scrumplex];
+    platforms = platforms.linux;
+  };
 })
