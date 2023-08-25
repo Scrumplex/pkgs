@@ -16,6 +16,7 @@
       imports = [
         ./flake/devShell.nix
         ./kernelPatches
+        ./lib
         ./modules
         ./pkgs
       ];
