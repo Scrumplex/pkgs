@@ -1,36 +1,46 @@
-pkgs: let
-  inherit (pkgs) callPackage fetchFromGitHub glfw;
-in {
-  bemoji = callPackage ./tools/misc/bemoji {};
+final: prev: let
+  callPackage = final.callPackage or prev.lib.callPackageWith (prev // packages);
 
-  fuzzel-dmenu-shim = callPackage ./tools/wayland/fuzzel-dmenu-shim {};
+  pkgs =
+    if (final != {})
+    then final
+    else prev;
 
-  glfw-wayland-minecraft = callPackage ./development/libraries/glfw-wayland-minecraft {};
+  inherit (pkgs) fetchFromGitHub;
 
-  glfwUnstable = glfw.overrideAttrs (_: {
-    src = fetchFromGitHub {
-      owner = "glfw";
-      repo = "GLFW";
-      rev = "62e175ef9fae75335575964c845a302447c012c7";
-      sha256 = "sha256-GiY4d7xadR0vN5uCQyWaOpoo2o6uMGl1fCcX4uDGnks=";
-    };
-  });
+  packages = {
+    bemoji = callPackage ./tools/misc/bemoji {};
 
-  libwlxpw = callPackage ./applications/misc/wlxoverlay/libwlxpw.nix {};
+    fuzzel-dmenu-shim = callPackage ./tools/wayland/fuzzel-dmenu-shim {};
 
-  libwlxshm = callPackage ./applications/misc/wlxoverlay/libwlxpw.nix {};
+    glfw-wayland-minecraft = callPackage ./development/libraries/glfw-wayland-minecraft {};
 
-  opencomposite = callPackage ./applications/graphics/opencomposite {};
+    glfwUnstable = prev.glfw.overrideAttrs (_: {
+      src = fetchFromGitHub {
+        owner = "glfw";
+        repo = "GLFW";
+        rev = "62e175ef9fae75335575964c845a302447c012c7";
+        sha256 = "sha256-GiY4d7xadR0vN5uCQyWaOpoo2o6uMGl1fCcX4uDGnks=";
+      };
+    });
 
-  opencomposite-helper = callPackage ./applications/graphics/opencomposite/helper.nix {};
+    libwlxpw = callPackage ./applications/misc/wlxoverlay/libwlxpw.nix {};
 
-  run-or-raise = callPackage ./tools/wayland/run-or-raise {};
+    libwlxshm = callPackage ./applications/misc/wlxoverlay/libwlxpw.nix {};
 
-  screenshot-bash = callPackage ./tools/graphics/screenshot-bash {};
+    opencomposite = callPackage ./applications/graphics/opencomposite {};
 
-  termapp = callPackage ./tools/wayland/termapp {};
+    opencomposite-helper = callPackage ./applications/graphics/opencomposite/helper.nix {};
 
-  wlxoverlay = callPackage ./applications/misc/wlxoverlay {};
+    run-or-raise = callPackage ./tools/wayland/run-or-raise {};
 
-  zoom65-udev-rules = callPackage ./os-specific/linux/zoom65-udev-rules {};
-}
+    screenshot-bash = callPackage ./tools/graphics/screenshot-bash {};
+
+    termapp = callPackage ./tools/wayland/termapp {};
+
+    wlxoverlay = callPackage ./applications/misc/wlxoverlay {};
+
+    zoom65-udev-rules = callPackage ./os-specific/linux/zoom65-udev-rules {};
+  };
+in
+  packages
