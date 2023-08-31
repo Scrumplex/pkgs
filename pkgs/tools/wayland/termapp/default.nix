@@ -1,36 +1,34 @@
+# Copyright (C) 2021,2023 Sefa Eyeoglu <contact@scrumplex.net>
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
 {
-  lib,
-  stdenv,
+  writeShellApplication,
   coreutils,
   kitty,
   run-or-raise,
 }:
-stdenv.mkDerivation rec {
-  pname = "termapp";
-  version = "20230210";
+writeShellApplication {
+  name = "termapp";
 
-  src = [./termapp.sh];
+  runtimeInputs = [coreutils kitty run-or-raise];
 
-  dontUnpack = true;
+  text = ''
+    if [ $# -eq 0 ]; then
+      exit 1
+    fi
 
-  buildInputs = [coreutils kitty run-or-raise];
+    appid="popup_$(basename "$1")"
 
-  installPhase = ''
-    install -Dpm755 $src $out/bin/termapp
+    exec run-or-raise "$appid" kitty "--class=$appid" "$@"
   '';
-
-  postFixup = let
-    runtimePath = lib.makeBinPath buildInputs;
-  in ''
-    sed -i "2 i export PATH=${runtimePath}:\$PATH" $out/bin/termapp
-  '';
-
-  meta = with lib; {
-    description = "A utility to run terminal apps using run-or-raise";
-    homepage = "https://codeberg.org/Scrumplex/dotfiles";
-    license = licenses.gpl3Plus;
-    mainProgram = "termapp";
-    maintainers = with maintainers; [Scrumplex];
-    platforms = platforms.linux;
-  };
 }

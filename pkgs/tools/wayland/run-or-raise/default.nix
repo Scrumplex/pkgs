@@ -1,34 +1,37 @@
+# Copyright (C) 2020-2021 Bob Hepple <bob.hepple@gmail.com>
+# Copyright (C) 2021,2023 Sefa Eyeoglu <contact@scrumplex.net>
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or (at
+# your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
 {
-  lib,
-  stdenv,
+  writeShellApplication,
   sway,
 }:
-stdenv.mkDerivation rec {
-  pname = "run-or-raise";
-  version = "20230210";
+writeShellApplication {
+  name = "run-or-raise";
 
-  src = [./run-or-raise.sh];
+  runtimeInputs = [sway];
 
-  dontUnpack = true;
+  text = ''
 
-  buildInputs = [sway];
+    [ $# -lt 2 ] && exit 1
 
-  installPhase = ''
-    install -Dpm755 $src $out/bin/run-or-raise
+    class="$1"
+
+    swaymsg "[app_id=$class] focus" &>/dev/null || {
+      # could be Xwayland app:
+      swaymsg "[class=$class] focus" &>/dev/null
+    } || exec "''${@:2}"
+
+    exit 0
   '';
-
-  postFixup = let
-    runtimePath = lib.makeBinPath buildInputs;
-  in ''
-    sed -i "2 i export PATH=${runtimePath}:\$PATH" $out/bin/run-or-raise
-  '';
-
-  meta = with lib; {
-    description = "A run-or-raise application switcher for Sway";
-    homepage = "https://codeberg.org/Scrumplex/dotfiles";
-    license = licenses.gpl3Plus;
-    mainProgram = "run-or-raise";
-    maintainers = with maintainers; [Scrumplex];
-    platforms = platforms.linux;
-  };
 }
