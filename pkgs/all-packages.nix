@@ -1,5 +1,5 @@
 final: prev: let
-  callPackage = final.callPackage or prev.lib.callPackageWith (prev // packages);
+  callPackage = final.callPackage or (prev.lib.callPackageWith (prev // packages));
 
   pkgs =
     if (final != {})
