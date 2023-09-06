@@ -12,6 +12,7 @@
     nixosModules = {
       flatpak-icons-workaround = import ./nixos/flatpak-icons-workaround.nix;
       monado = import ./nixos/monado.nix;
+      symbols-font = import ./nixos/symbols-font.nix;
       vdpau = import ./nixos/vdpau.nix;
     };
   };
