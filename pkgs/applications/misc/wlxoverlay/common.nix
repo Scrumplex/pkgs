@@ -2,13 +2,13 @@
   lib,
   fetchFromGitHub,
 }: rec {
-  version = "1.3.1";
+  version = "1.4.1";
 
   src = fetchFromGitHub {
     owner = "galister";
     repo = "WlxOverlay";
     rev = "v${version}";
-    hash = "sha256-MaDIGLeaRVfk2/wF0mpL2gHkG4WhomY5Y3VXSoG/jp8=";
+    hash = "sha256-KahP26ZjkJpNdn1T69fPHvZoZ+v6AyGEo498I5uLR2I=";
   };
 
   meta = {
