@@ -1,34 +1,32 @@
 {
   lib,
-  stdenv,
+  stdenvNoCC,
+  makeWrapper,
   fuzzel,
 }:
-stdenv.mkDerivation rec {
+stdenvNoCC.mkDerivation {
   pname = "fuzzel-dmenu-shim";
-  version = "20230219";
+  version = "0-unstable-2024-02-03";
 
-  src = [./fuzzel-menu.sh];
+  nativeBuildInputs = [makeWrapper];
 
   dontUnpack = true;
-
-  buildInputs = [fuzzel];
+  dontConfigure = true;
+  dontBuild = true;
 
   installPhase = ''
-    install -Dpm755 $src $out/bin/fuzzel-menu
-    ln -sf fuzzel-menu $out/bin/dmenu
-    ln -sf fuzzel-menu $out/bin/dmenu-wl
-    ln -sf fuzzel-menu $out/bin/bemenu
-  '';
-
-  postFixup = let
-    runtimePath = lib.makeBinPath buildInputs;
-  in ''
-    sed -i "2 i export PATH=${runtimePath}:\$PATH" $out/bin/fuzzel-menu
+    runHook preInstall
+    makeWrapper ${lib.getExe fuzzel} $out/bin/fuzzel-menu \
+      --add-flags "--dmenu"
+    ln -s fuzzel-menu $out/bin/dmenu
+    ln -s fuzzel-menu $out/bin/dmenu-wl
+    ln -s fuzzel-menu $out/bin/bemenu
+    runHook postInstall
   '';
 
   meta = with lib; {
     description = "A shim that makes it possible to use fuzzel for any dmenu script.";
-    homepage = "https://codeberg.org/Scrumplex/dotfiles";
+    homepage = "https://codeberg.org/Scrumplex/flake";
     license = licenses.gpl3Plus;
     mainProgram = "fuzzel-menu";
     maintainers = with maintainers; [Scrumplex];
