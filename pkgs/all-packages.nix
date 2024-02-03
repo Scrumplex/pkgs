@@ -13,8 +13,6 @@ final: prev: let
 
     fuzzel-dmenu-shim = callPackage ./tools/wayland/fuzzel-dmenu-shim {};
 
-    glfw-wayland-minecraft = callPackage ./development/libraries/glfw-wayland-minecraft {};
-
     glfwUnstable = prev.glfw.overrideAttrs (_: {
       src = fetchFromGitHub {
         owner = "glfw";
