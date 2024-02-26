@@ -27,6 +27,9 @@ final: prev: let
     libwlxshm = callPackage ./applications/misc/wlxoverlay/libwlxpw.nix {};
 
     run-or-raise = callPackage ./tools/wayland/run-or-raise {};
+    run-or-raise-hyprland = callPackage ./tools/wayland/run-or-raise {
+      backend = "hyprland";
+    };
 
     screenshot-bash = callPackage ./tools/graphics/screenshot-bash {};
 

@@ -1,5 +1,5 @@
 # Copyright (C) 2020-2021 Bob Hepple <bob.hepple@gmail.com>
-# Copyright (C) 2021,2023 Sefa Eyeoglu <contact@scrumplex.net>
+# Copyright (C) 2021,2023,2024 Sefa Eyeoglu <contact@scrumplex.net>
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or (at
@@ -13,25 +13,45 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 {
+  lib,
   writeShellApplication,
+  backend ? "sway",
   sway,
+  hyprland,
+  jq,
 }:
-writeShellApplication {
-  name = "run-or-raise";
+assert builtins.elem backend ["sway" "hyprland"];
+  writeShellApplication {
+    name = "run-or-raise";
 
-  runtimeInputs = [sway];
+    runtimeInputs =
+      lib.optional (backend == "sway") sway
+      ++ lib.optionals (backend == "hyprland") [hyprland jq];
 
-  text = ''
+    text = ''
 
-    [ $# -lt 2 ] && exit 1
+      [ $# -lt 2 ] && exit 1
 
-    class="$1"
+      class="$1"
 
-    swaymsg "[app_id=$class] focus" &>/dev/null || {
-      # could be Xwayland app:
-      swaymsg "[class=$class] focus" &>/dev/null
-    } || exec "''${@:2}"
+      ${lib.optionalString (backend == "sway") ''
+        swaymsg "[app_id=$class] focus" &>/dev/null || {
+          # could be Xwayland app:
+          swaymsg "[class=$class] focus" &>/dev/null
+        } || exec "''${@:2}"
+      ''}
+      ${lib.optionalString (backend == "hyprland") ''
+        address=$(hyprctl clients -j | jq --arg "class" "$class" -r '.[] | select(.class == $class) | .address')
+        if [ -n "$address" ]; then
+          hyprctl dispatch focuswindow "address:$address"
+        else
+          exec "''${@:2}"
+        fi
+      ''}
+      exit 0
+    '';
 
-    exit 0
-  '';
-}
+    meta = with lib; {
+      platform = platforms.linux;
+    };
+  }
