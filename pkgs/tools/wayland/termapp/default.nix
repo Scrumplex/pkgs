@@ -12,6 +12,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 {
+  lib,
   writeShellApplication,
   coreutils,
   kitty,
@@ -31,4 +32,8 @@ writeShellApplication {
 
     exec run-or-raise "$appid" kitty "--class=$appid" "$@"
   '';
+
+  meta = with lib; {
+    platform = platforms.linux;
+  };
 }
