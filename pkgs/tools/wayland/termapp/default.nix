@@ -34,6 +34,6 @@ writeShellApplication {
   '';
 
   meta = with lib; {
-    platform = platforms.linux;
+    platforms = platforms.linux;
   };
 }
