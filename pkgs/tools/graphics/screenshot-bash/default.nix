@@ -59,5 +59,6 @@ stdenv.mkDerivation (_: {
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [Scrumplex];
     platforms = platforms.linux;
+    mainProgram = "screenshot-bash";
   };
 })
