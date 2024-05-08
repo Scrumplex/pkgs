@@ -12,9 +12,9 @@
   common = import ./common.nix {inherit lib fetchFromGitHub;};
 in
   buildDotnetModule {
-    pname = "wlxoverlay";
+    pname = "WlxOverlay";
 
-    inherit (common) version src meta;
+    inherit (common) version src;
 
     nugetDeps = ./deps.nix;
 
@@ -27,4 +27,10 @@ in
       [openvr glfw]
       ++ lib.optional withWayland libwlxpw
       ++ lib.optional withX11 libwlxshm;
+
+    meta =
+      common.meta
+      // {
+        mainProgram = "WlxOverlay";
+      };
   }
