@@ -12,16 +12,16 @@
   sox,
   xdg-utils,
 }:
-stdenv.mkDerivation (_: {
+stdenv.mkDerivation {
   pname = "screenshot-bash";
-  version = "unstable-2023-03-01";
+  version = "unstable-2024-06-10";
 
   src = fetchFromGitea {
     domain = "codeberg.org";
     owner = "Scrumplex";
     repo = "screenshot-bash";
-    rev = "afe18036aab6eefafa53c005abdbfaf5cd2c290b";
-    hash = "sha256-b5xTm9Gr2F1iFq2WXYLV13HJ4KSnqpzPnurSPI9xJsA=";
+    rev = "14ac3fcf91d5ea34d7272359649a1f3764543c35";
+    hash = "sha256-5syKfdQbEunrK0DgblHIV3gPKDp4y3CzFzoq0jXh4Wk=";
   };
 
   nativeBuildInputs = [makeWrapper];
@@ -61,4 +61,4 @@ stdenv.mkDerivation (_: {
     platforms = platforms.linux;
     mainProgram = "screenshot-bash";
   };
-})
+}
