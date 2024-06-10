@@ -20,8 +20,8 @@ stdenv.mkDerivation {
     domain = "codeberg.org";
     owner = "Scrumplex";
     repo = "screenshot-bash";
-    rev = "14ac3fcf91d5ea34d7272359649a1f3764543c35";
-    hash = "sha256-5syKfdQbEunrK0DgblHIV3gPKDp4y3CzFzoq0jXh4Wk=";
+    rev = "4569538377974daf37050c03aed710d9ab3678e7";
+    hash = "sha256-0U8ita5pDMbIFBqVFhSBnGSNrgfAm7d82g8Mgcpu+iM=";
   };
 
   nativeBuildInputs = [makeWrapper];
