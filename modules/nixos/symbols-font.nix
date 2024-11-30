@@ -14,7 +14,7 @@ in {
     enable = mkEnableOption "font symbols";
 
     package = mkOption {
-      default = pkgs.nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];};
+      default = pkgs.nerd-fonts.symbols-only;
       defaultText = literalExpression ''
         pkgs.nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];}
       '';
