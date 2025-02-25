@@ -8,7 +8,7 @@
   curl,
   file,
   gzip,
-  kdialog,
+  kdePackages,
   sox,
   xdg-utils,
 }:
@@ -44,7 +44,7 @@ stdenv.mkDerivation {
       curl
       file
       gzip
-      kdialog
+      kdePackages.kdialog
       sox
       xdg-utils
     ];
