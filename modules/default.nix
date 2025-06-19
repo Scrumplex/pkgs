@@ -1,7 +1,6 @@
 {self, ...}: {
   flake = {
     hmModules = {
-      catppuccin = import ./hm/catppuccin.nix;
       fish-theme = import ./hm/fish-theme.nix;
       pipewire = import ./hm/pipewire.nix;
       waybar-camera-blank = import ./hm/waybar/camera-blank.nix;
