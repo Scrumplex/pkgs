@@ -2,7 +2,7 @@
   flake = {
     hmModules = {
       fish-theme = import ./hm/fish-theme.nix;
-      pipewire = import ./hm/pipewire.nix;
+      pipewire-instances = import ./hm/pipewire-instances.nix;
       waybar-camera-blank = import ./hm/waybar/camera-blank.nix;
       waybar-pa-mute = import ./hm/waybar/pa-mute.nix;
     };
