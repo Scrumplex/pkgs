@@ -55,7 +55,7 @@
       Service = {
         Environment = let
           # pipewire-filter-chain allows loading LADSPA and LV2 filters, add them to the search path here
-          extraPackages = instance.extraPackages ++ [cfg.package];
+          extraPackages = instance.extraPackages ++ [pkgs.pipewire];
           bins = makeSearchPath "bin" extraPackages;
           libs = makeSearchPath "lib" extraPackages;
           ladspaLibs = makeSearchPath "lib/ladspa" extraPackages;
@@ -67,7 +67,7 @@
           "LV2_PATH=${lv2Libs}"
         ];
         ExecStart = ''
-          ${cfg.package}/bin/pipewire -c ${pwConfig}
+          ${lib.getExe' pkgs.pipewire "pipewire"} -c ${pwConfig}
         '';
       };
       Install.WantedBy = ["pipewire.service"];
